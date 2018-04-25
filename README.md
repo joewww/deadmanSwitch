@@ -1,6 +1,11 @@
 # deadmanSwitch Contract
 
-This project is a lab to explore a basic implementation of a 'dead mans switch wallet' on the Ethereum network
+This project is a lab to explore a basic implementation of a 'dead mans switch wallet' on the Rinkeby Ethereum test net.
+
+You will need the [Metamask](https://metamask.io/) browser plugin installed, and javascript enabled:
+
+https://joewww.github.io/deadmanSwitch/
+
 
 This contract will:
 
@@ -45,4 +50,7 @@ return true;
 ## Tools used
 
 * [remix](https://remix.ethereum.org/) - To test, deploy, and interact with the contract
-* [metamask](https://metamask.io/) - Wallet
+* [metamask](https://metamask.io/) - Wallet, and to interact via the browser
+
+## Disclaimer
+This is a toy. I don't recommend using this on the main net with real Ether. For learning/testing purposes only.
