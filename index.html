@@ -1,23 +1,81 @@
-<script src="./js/web3.min.js"></script>
-<script src="./js/jquery-3.2.1.min.js"></script>
+<html>
+<head>
+  <title>deadmanSwitch Wallet</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/bootstrap.css">
+</head>
 
-<!-- shoutouts to https://programtheblockchain.com/ for the web3js examples
--->
+<body>
+  <script src="./js/web3.min.js"></script>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <!-- shoutouts to https://programtheblockchain.com/ for the web3js examples
+  -->
+  <script src="./js/deadmanSwitch.js"></script>
 
-<script src="./js/deadmanSwitch.js"></script>
+  <!-- owner control panel
+  -->
+  <div class="modal fade" id="owner-display" tabindex="-1" role="dialog" aria-labelledby="important-msg-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="important-msg-label">Owner control panel</h4>
+        </div>
+        <div class="modal-body">
+          <b>This function should be called at least once per year to extend the minimum withdraw time for the designated beneficiary.</b>
+          <br /><br />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="checkin">Check in!</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h1>Dead Man Switch Wallet</h2>
-<p><h2>Available Balance: <span id="balance">??</span> ETH</h2></p>
-<p><h2>Funds not available before: <span id="min_time">??</span></h2></p>
-<p><h2><span id="alive">??</span></h2></p>
-<p><p>
-<p><h3>Owner functions</h3></p>
 
-<button id="checkin">Check in!</button>
+  <!-- beneficiary control panel
+  -->
+  <div class="modal fade" id="beneficiary-display" tabindex="-1" role="dialog" aria-labelledby="important-msg-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="important-msg-label">Beneficiary control panel</h4>
+        </div>
+        <div class="modal-body">
+          <b>Note: The beneficiary will need to execute the checkAlive() function, which will set alive=false if the owner hasn't checked in by min_time.</b>
+          <br /><br />
+          <b>Once alive=false, the beneficiary will be able to execute the withdraw() function.</b>
+          <br /><br />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" id="withdraw">Withdraw Funds</button>
+          <button type="button" class="btn btn-primary" id="checkAlive">Check Alive</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<p><h3>Beneficiary functions</h3></p>
+  <div class="header">💀 Dead Man Switch Wallet</div>
 
-<button id="withdraw">Withdraw Funds</button>
-<button id="checkAlive">Check Alive</button>
-<!-- <button id="balance">Check Balance</button> -->
-<small><div id="log"></div></small>
+    <div class="contract-info"><p>Available Balance: <span id="balance">??</span> ETH</p>
+      <p>Funds not available before: <span id="min_time">??</span></p>
+      <p><span id="alive">??</span></p>
+    </div>
+
+  <!-- <div id="log"></div>
+  -->
+
+  <div id="helper"></div>
+
+  <div id="footer" class="footer">
+    Log in:
+    <a href='#' onclick='loadOwnerDisplay()'>Owner</a> |
+    <a href='#' onclick='loadBeneficiaryDisplay()'>Beneficiary</a>
+  </div>
+
+</body>
+</html>

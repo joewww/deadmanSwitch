@@ -1,3 +1,63 @@
+function ShowMetamaskHelp(){
+	$("#helper").append('<br><center><b>You need MetaMask in order to interact with this ĐApp.</b></center><br>');
+	$("#helper").append('<center><a href="https://metamask.io/" target="_blank"><img src="./gfx/download-metamask-dark.png"></img></a></center>');
+  $(".contract-info").hide();
+	$(".log").hide();
+  $(".footer").hide();
+}
+
+function ShowRinkebyHelp(){
+	$("#helper").append('<br><center><b>You need to be connected to the Rinkeby testnet to interact with this ĐApp.</b></center><br>');
+	$("#helper").append('<center><img src="./gfx/rinkeby-help.png"></img></center>');
+	$(".contract-info").hide();
+	$(".log").hide();
+	$(".footer").hide();
+}
+
+var metamaskAvailable = false;
+window.onload = function () {
+
+	if (typeof web3 !== 'undefined') {
+		log('MetaMask is available');
+		web3 = new Web3(web3.currentProvider);
+		log("Connected: " + web3.isConnected());
+
+		metamaskAvailable = true;
+
+		web3.eth.defaultAccount = web3.eth.accounts[0];
+
+		web3.currentProvider.publicConfigStore.on('update', MetaMaskUpdate);
+      } else {
+        error('No MetaMask!');
+	  }
+
+	  if (!metamaskAvailable) {
+		  ShowMetamaskHelp();
+	  }
+}
+
+function MetaMaskUpdate(){
+	metamaskLocked = (web3.eth.accounts[0] === undefined);
+	WriteMetaMaskLockMessage();
+}
+
+function WriteMetaMaskLockMessage(){
+
+	var metamaskLockedElement = document.getElementById('footer');
+
+	if (metamaskLocked) {
+		metamaskLockedElement.innerHTML = "<b>🔒 MetaMask is locked.</b>";
+  }
+ }
+
+function loadOwnerDisplay(){
+	$('#owner-display').modal('show');
+}
+
+function loadBeneficiaryDisplay(){
+	$('#beneficiary-display').modal('show');
+}
+
 function log(message) {
   $('#log').append($('<p>').text(message));
   $('#log').scrollTop($('#log').prop('scrollHeight'));
@@ -34,6 +94,7 @@ var address = "0xD2c4d7c23c73b64b3E266A1c097686F7B8436c42";
 
 var abi = [ { "constant": false, "inputs": [], "name": "checkAlive", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "checkin", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "newBeneficiary", "type": "address" } ], "name": "transferBeneficiary", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "newOwner", "type": "address" } ], "name": "transferOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "payable": true, "stateMutability": "payable", "type": "fallback" }, { "constant": false, "inputs": [], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "alive", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "balance", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "beneficiary", "outputs": [ { "name": "", "type": "address" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "checkins", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "min_time", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [ { "name": "", "type": "address" } ], "payable": false, "stateMutability": "view", "type": "function" } ];
 
+
 $(function () {
   var deadManSwitchWallet;
 // minimum time function
@@ -47,7 +108,7 @@ $(function () {
         log("min_time call executed successfully.");
       }
 
-      var humanDate = new Date(result * 1000).toUTCString();
+      humanDate = new Date(result * 1000).toUTCString();
 
       $('#min_time').text(humanDate.toString());
     });
@@ -127,9 +188,9 @@ $(function () {
       }
 // check if alive is true
       if(result) {
-        $('#alive').text("The owner is still alive!");
+        $('#alive').html("<b>The owner is still alive!</b>");
       } else {
-        $('#alive').text("The owner is ded :( RIP");
+        $('#alive').html("<b>The owner is ded :( RIP</b>");
       }
     });
   });
@@ -167,23 +228,28 @@ $(function () {
     web3.version.getNetwork((err, netId) => {
       switch (netId) {
         case "1":
-          log('This is mainnet')
+          log('This is mainnet, switch to Rinkeby.')
+					ShowRinkebyHelp();
           break
         case "2":
           log('This is the deprecated Morden test network.')
+					ShowRinkebyHelp();
           break
         case "3":
-          log('This is the ropsten test network.')
+          log('This is the ropsten test network, switch to Rinkeby.')
+					ShowRinkebyHelp();
           break
         case "4":
           log('This is the Rinkeby test network.')
           connect();
           break
         case "42":
-          log('This is the Kovan test network.')
+          log('This is the Kovan test network, switch to Rinkeby.')
+					ShowRinkebyHelp();
           break
         default:
           log('This is an unknown network.')
+					ShowRinkebyHelp();
       }
     });
 

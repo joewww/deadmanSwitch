@@ -1,0 +1,121 @@
+a {
+  text-decoration: none;
+}
+
+a:link, a:visited, a:hover {
+  color: black;
+}
+
+html, body, ul {
+  padding:0;
+  margin:0;
+  margin-bottom:0;
+}
+
+html {
+  height: 100%;
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  height: 100%;
+  background: linear-gradient(rgb(255, 255, 255), rgb(0, 150, 234));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.button {
+  margin: auto;
+  background-color: rgb(255, 255, 255);
+  border: solid 2px rgb(195, 254, 255);
+  color: rgb(75, 138, 139);
+  min-width: 200px;
+  min-height: 190px;
+  width: 14vw;
+  height: 14vw;
+  text-align: center;
+  padding: 30px 30px;
+  margin: 0px;
+  text-decoration: none;
+  display: inline-block;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 16px;
+  vertical-align: bottom;
+}
+
+.inButton {
+  text-overflow:clip;
+  white-space: normal;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.button:hover {
+  color: black;
+  border: solid 2px rgb(160, 222, 223);
+}
+
+.header {
+  margin-top: 0;
+  padding: 15px;
+  width: 100%;
+  min-height: 50px;
+  text-align: left;
+  font-size: 30px;
+  background-color: rgb(73, 155, 234);
+  color: black;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.contract-info {
+  margin-top: 0;
+  padding: 15px;
+  width: 100%;
+  min-height: 50px;
+  text-align: left;
+  font-size: 20px;
+}
+
+.footer {
+  margin-top: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 25px;
+# background-color: rgb(73, 155, 234);
+  background-color: rgb(255, 255, 255);
+  color: black;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  position: fixed;
+  overflow: hidden;
+  left: 0;
+  bottom: 0;
+}
+
+#helper {
+  margin: auto;
+  width: 75%;
+  padding-bottom: 80px;
+}
+
+/* MODAL */
+#overlay {
+  visibility: hidden;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width:100%;
+  height:100%;
+  text-align:center;
+  z-index: 1000;
+ }
