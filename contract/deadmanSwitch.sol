@@ -1,25 +1,44 @@
 pragma solidity ^0.4.23;
 
-// Deadman Switch Trustfund: Allow withdraw of funds if checkin function not executed within timeframe
+/** Deadman Switch Trustfund: Allow withdraw of funds if checkin function not executed within timeframe
+ *
+ * @dev Currently testing on Ropsten
+ *
+ */
 
+/**
+ * @title deadmanSwitch
+ * @dev ...
+ */
 contract deadmanSwitch {
   address public owner = msg.sender;
-  //ACCOUNT #2 (insecure)
-  address public beneficiary = 0x3f1e38f7c085ca03a5ff35f1c354b4fc16645b32;
+  //ACCOUNT #2
+  address public beneficiary = 0xC4d1a08E7F6E6211ffea4B35Aa685a8BE249ECca;
   uint constant year = 31556926;      // Seconds in year
   uint public min_time = 1545739200;  // Tuesday, December 25, 2018 7:00:00 AM GMT-05:00
 
-  // set to true on initial deploy
+  /*
+   * @dev set to true on initial deploy
+   */
   bool public alive = true;
-  uint public balance = 0;
+//  uint public balance = 0;
 
-  // Confirm alive (should be once a year, but owner can extend indefinitely)
+  /*
+   * @devConfirm alive (should be once a year, but owner can extend indefinitely)
+   */
   uint public checkins = 0;
+
+  // Events
+  event CheckIn(address who);     // Log CheckIns
+  event CheckAlive(address who);  // Log Queries for alive status
+
+
   function checkin() public returns (bool) {
     if (msg.sender == owner || msg.sender == beneficiary) {
       alive = true;
       min_time += year; // Add 1 year to min withdraw time
       checkins++;
+      emit CheckIn(msg.sender); // logging event
       return true;
     }
     return false;
@@ -29,6 +48,7 @@ contract deadmanSwitch {
   function checkAlive() public returns (bool) {
     if (block.timestamp > min_time) {
       alive = false; // RIP
+      emit CheckAlive(msg.sender);
       return true;
     }
   return true;
@@ -40,7 +60,9 @@ contract deadmanSwitch {
     owner = newOwner;
   }
 
-  // Allow owner to set new beneficiary
+  /* @dev Allow owner to set new beneficiary
+   * @params
+   */
   function transferBeneficiary(address newBeneficiary) public {
     require(newBeneficiary != address(0) && owner == msg.sender);
     beneficiary = newBeneficiary;
@@ -54,7 +76,7 @@ contract deadmanSwitch {
     }
   }
 
-  function () payable {
-    balance = msg.value;
+  function () public payable {
+  //  balance = msg.value;
   }
 }
