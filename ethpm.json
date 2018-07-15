@@ -1,0 +1,16 @@
+{
+  "package_name": "DeadmanSwitchWallet",
+  "version": "0.0.1",
+  "description": "Dead man switch wallet on Rinkeby",
+  "authors": [
+    "Joe Wagner <joew@joew.net>"
+  ],
+  "keywords": [
+    "ethereum",
+    "deadmanswitch"
+  ],
+  "dependencies": {
+    "zeppelin": "^1.3.0"
+  },
+  "license": "MIT"
+}

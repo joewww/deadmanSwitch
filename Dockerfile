@@ -1,12 +1,21 @@
 FROM ubuntu:16.04
 
-# docker run -d -p 8080:8080 -it --entrypoint "http-server" <IMG ID>
+# docker run -d -p 8080:8080 -it --entrypoint "http-server" DeadmanSwitch
 
 RUN apt-get update
 RUN apt-get install -y nodejs npm nodejs-legacy
 RUN npm install -g http-server
 
 CMD mkdir {css,gfx,js}
+
+CMD mkdir -p installed_contracts/zeppelin/contracts/ownership/
+CMD mkdir -p installed_contracts/zeppelin/contracts/math/
+CMD mkdir -p installed_contracts/zeppelin/contracts/lifecycle/
+
+COPY installed_contracts/zeppelin/contracts/ownership/Ownable.sol installed_contracts/zeppelin/contracts/ownership/Ownable.sol
+COPY installed_contracts/zeppelin/contracts/math/SafeMath.sol installed_contracts/zeppelin/contracts/math/SafeMath.sol
+COPY installed_contracts/zeppelin/contracts/lifecycle/Destructible.sol installed_contracts/zeppelin/contracts/lifecycle/Destructible.sol
+COPY installed_contracts/zeppelin/contracts/lifecycle/Pausable.sol installed_contracts/zeppelin/contracts/lifecycle/Pausable.sol
 
 COPY css/style.css css/style.css
 COPY css/bootstrap.css css/bootstrap.css
