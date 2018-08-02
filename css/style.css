@@ -92,7 +92,6 @@ body {
   line-height: 50px;
   text-align: center;
   font-size: 25px;
-# background-color: rgb(73, 155, 234);
   background-color: rgb(255, 255, 255);
   color: black;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -100,6 +99,16 @@ body {
   overflow: hidden;
   left: 0;
   bottom: 0;
+}
+
+.address {
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  height: 35px;
+  color: #000;
+  text-align: left;
+  font-size: 14px;
 }
 
 #helper {

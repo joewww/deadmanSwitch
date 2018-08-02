@@ -14,6 +14,11 @@ function ShowRinkebyHelp() {
   $(".footer").hide();
 }
 
+function ShowMetamaskAddress() {
+  $(".log").hide();
+  document.getElementById('myaddress').innerHTML = "Current account: " + web3.eth.defaultAccount;
+}
+
 var metamaskAvailable = false;
 window.onload = function() {
 
@@ -75,12 +80,12 @@ function waitForReceipt(hash, cb) {
     }
 
     if (receipt !== null) {
-      // Transaction went through
+      /* Transaction went through */
       if (cb) {
         cb(receipt);
       }
     } else {
-      // Try again in 1 second
+      /* Try again in 1 second */
       window.setTimeout(function() {
         waitForReceipt(hash, cb);
       }, 1000);
@@ -88,8 +93,9 @@ function waitForReceipt(hash, cb) {
   });
 }
 
-// Contract address on Rinkeby testnet
-// https://rinkeby.etherscan.io/address/0xe1243106c460603eba6089bbbe721983295a8425
+/* Contract address on Rinkeby testnet
+ * https://rinkeby.etherscan.io/address/0xe1243106c460603eba6089bbbe721983295a8425
+ */
 var address = "0xe1243106c460603eba6089bbbe721983295a8425";
 
 var abi = [
@@ -415,7 +421,7 @@ var abi = [
 $(function() {
   var deadManSwitchWallet;
 
-  // minimum time function
+  /* minimum time function */
   $('#min_time').click(function(e) {
     e.preventDefault();
 
@@ -432,7 +438,7 @@ $(function() {
     });
   });
 
-  // balance function
+  /* balance function */
   $('#balance').click(function(e) {
     e.preventDefault();
 
@@ -447,7 +453,7 @@ $(function() {
     });
   });
 
-  // ipfsHash to store image of agreement
+  /* ipfsHash to store image of agreement */
   $('#ipfsHash').click(function(e) {
     e.preventDefault();
 
@@ -465,7 +471,7 @@ $(function() {
   });
 
 
-  // withdraw function
+  /* withdraw function */
   $('#withdraw').click(function(e) {
     e.preventDefault();
 
@@ -488,7 +494,7 @@ $(function() {
     });
   });
 
-  // checkAlive function
+  /* checkAlive function */
   $('#checkAlive').click(function(e) {
     e.preventDefault();
 
@@ -511,7 +517,7 @@ $(function() {
     });
   });
 
-  // alive? function
+  /* alive? function */
   $('#alive').click(function(e) {
     e.preventDefault();
 
@@ -523,7 +529,7 @@ $(function() {
       } else {
         log("alive call executed successfully.");
       }
-      // check if alive is true
+      /* check if alive is true */
       if (result) {
         $('#alive').html("<b>The owner is still alive!</b>");
       } else {
@@ -532,7 +538,7 @@ $(function() {
     });
   });
 
-  // checkin function
+  /* checkin function */
   $('#checkin').click(function(e) {
     e.preventDefault();
 
@@ -562,7 +568,7 @@ $(function() {
     log("Found injected web3.");
     web3 = new Web3(web3.currentProvider);
 
-    // network detection
+    /* network detection */
     web3.version.getNetwork((err, netId) => {
       switch (netId) {
         case "1":
@@ -579,6 +585,7 @@ $(function() {
           break
         case "4":
           log('This is the Rinkeby test network.')
+          ShowMetamaskAddress();
           connect();
           break
         case "42":
@@ -587,7 +594,8 @@ $(function() {
           break
         default:
           log('This is an unknown network.')
-//        ShowRinkebyHelp();
+/*        ShowRinkebyHelp();
+*/
 	  connect();
       }
     });
