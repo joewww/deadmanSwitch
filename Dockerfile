@@ -22,6 +22,7 @@ COPY css/bootstrap.css css/bootstrap.css
 
 COPY gfx/download-metamask-dark.png gfx/download-metamask-dark.png
 COPY gfx/rinkeby-help.png gfx/rinkeby-help.png
+COPY gfx/nothin.png gfx/nothin.png
 
 COPY js/jquery-3.2.1.min.js js/jquery-3.2.1.min.js
 COPY js/bootstrap.min.js js/bootstrap.min.js
