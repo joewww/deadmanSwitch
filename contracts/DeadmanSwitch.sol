@@ -23,7 +23,7 @@ contract DeadmanSwitch is Ownable, Pausable, Destructible {
 
     // @dev designated beneficiary for the funds within the contract
     // @dev account 3
-    address public beneficiary = 0xf46a36b1eafda5f7597395eeab4c89992f851308;
+    address public beneficiary = 0xf46a36B1EAfDa5F7597395EEAB4c89992F851308;
 
     // @dev Seconds in year
     uint public constant year = 31556926;
