@@ -73,9 +73,7 @@ contract DeadmanSwitch is Ownable, Pausable, Destructible {
       return false;
     }
 
-    /** @dev Need to set alive status before withdrawing funds
-      * @return true ### REMOVE return status???
-      */
+    /** @dev Need to set alive status before withdrawing funds */
     function checkAlive()
       whenNotPaused()
       public returns (bool)
