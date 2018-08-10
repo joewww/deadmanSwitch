@@ -2,13 +2,13 @@
 
 ### Mortal functionality
 
-Allows `destroyAndSend()` so that funds can be recovered if there's a bug, or if the owner doesn't want to wait until `min_time`
+Allows `destroyAndSend()` so that funds can be recovered if there's a bug, or if the owner doesn't want to wait until `min_time` to withdraw funds.
 
 ### Restricting Access
 
 Operations such as transferring the ownership or beneficiary are restricted to the owner of the contract.
 
-Also, updating the IPFS hash is only allowed by the owner
+Also, updating the IPFS hash is only allowed by the owner.
 
 ### Circuit Breaker
 
