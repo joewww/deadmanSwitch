@@ -64,10 +64,13 @@ Clone repository:
 
 Then, visit local site: http://127.0.0.1:8080
 
+## Interacting with the contract
 
-## Key Functions
+Modifying this contracts state is restricted to the owner and beneficiary. If you want to interact with this contract, you will need to deploy it to your own test net, with your own beneficiary.
 
-#### checkin()
+### Key Functions
+
+##### checkin()
 
 This is intended to be executed ~once a year, and will extend the minimum allowed withdraw time by 1 year.
 
@@ -89,7 +92,7 @@ function checkin()
 }
 ```
 
-#### checkAlive()
+##### checkAlive()
 
 This should be executed to set alive status to false, to allow withdraw function to run successfully.
 
