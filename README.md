@@ -2,7 +2,7 @@
 
 This project is a lab to explore a basic implementation of a 'dead mans switch wallet' on the Rinkeby Ethereum test net.
 
-A 'dead mans switch' is a mechanism which is activated after the owner becomes unavailable, such as through death, illness, incarceration, etc. The owner will need to check in periodically by calling the checkin() function. If this function isn't called within a certain timeframe, the funds stored in the contract will become available to a designated beneficiary.
+A 'dead mans switch' is a mechanism which is activated after the owner becomes unavailable, such as through death, illness, incarceration, etc. The owner will need to check in periodically by calling the `checkin()` function. If this function isn't called within a certain timeframe, the funds stored in the contract will become available to a designated beneficiary.
 
 You will need the [Metamask](https://metamask.io/) browser plugin installed, and javascript enabled:
 
@@ -12,9 +12,9 @@ https://joewww.github.io/deadmanSwitch
 #### This contract will:
 
 1. Designate an owner, and a primary beneficiary
-2. Lock funds up for at least min_time (unix epoch time), which can be extended by the owner for 1 year increments
+2. Lock funds up for at least `min_time` (unix epoch time), which can be extended by the owner for 1 year increments
 3. Allow the transfer of ownership, and beneficiary
-4. Only allow funds to be withdrawn when min_time is reached
+4. Only allow funds to be withdrawn when `min_time` is reached
 
 
 ## Local Development Environment
@@ -29,7 +29,7 @@ Clone repository:
 
 `$ cd deadmanSwitch/`
 
-Start local blockchain for testing:
+Start local blockchain for testing (in separate terminal):
 
 `$ ganache-cli`
 
@@ -54,9 +54,6 @@ Then, visit local site: http://127.0.0.1:8080
 
 ### Docker
 
-NOTE: Publish to dockerhub?
- - So I can do: `$ docker pull`
-
 Clone repository:
 
 `$ git clone https://github.com/joewww/deadmanSwitch.git`
@@ -75,11 +72,14 @@ Then, visit local site: http://127.0.0.1:8080
 This is intended to be executed ~once a year, and will extend the minimum allowed withdraw time by 1 year.
 
 ```javascript
-function checkin() public returns (bool) {
+function checkin()
+  whenNotPaused()
+  public returns (bool)
+{
   if (msg.sender == owner || msg.sender == beneficiary) {
     alive = true;
     // @dev Add 1 year to min withdraw time
-    min_time = year.add(min_time);  // Add 1 year to min withdraw time
+    min_time = year.add(min_time);
     checkins++;
     // @dev logging event
     emit CheckIn(msg.sender);
@@ -94,11 +94,15 @@ function checkin() public returns (bool) {
 This should be executed to set alive status to false, to allow withdraw function to run successfully.
 
 ```javascript
-// @dev Need to set alive status before withdrawing funds
-function checkAlive() public returns (bool) {
+/** @dev Need to set alive status before withdrawing funds */
+function checkAlive()
+  whenNotPaused()
+  public returns (bool)
+{
+  emit CheckAlive(msg.sender);
   if (block.timestamp > min_time) {
-    alive = false; // RIP
-    emit CheckAlive(msg.sender);
+    // @dev RIP
+    alive = false;
     return true;
   }
 return true;
