@@ -94,9 +94,9 @@ function waitForReceipt(hash, cb) {
 }
 
 /* Contract address on Rinkeby testnet
- * https://rinkeby.etherscan.io/address/0xe1243106c460603eba6089bbbe721983295a8425
+ * https://rinkeby.etherscan.io/address/0x798e7c454a12aef724ee897f4bebf81606925ab0
  */
-var address = "0xe1243106c460603eba6089bbbe721983295a8425";
+var address = "0x798e7c454a12aef724ee897f4bebf81606925ab0";
 
 var abi = [
 	{

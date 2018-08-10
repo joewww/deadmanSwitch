@@ -31,7 +31,7 @@ contract('DeadmanSwitch', function (accounts) {
     return DeadmanSwitch.deployed().then(function (instance) {
       return instance.beneficiary.call();
       }).then(function (beneficiary) {
-        assert.equal(beneficiary, 0x0c93D3f8532c0A811f011949E4666D30A675D1dD);
+        assert.equal(beneficiary, 0xf46a36b1eafda5f7597395eeab4c89992f851308);
       });
   });
 

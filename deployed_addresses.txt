@@ -1,19 +1,15 @@
 
 
 Contract address:
-0xe1243106c460603eba6089bbbe721983295a8425
+0x798e7c454a12aef724ee897f4bebf81606925ab0
+https://rinkeby.etherscan.io/address/0x798e7c454a12aef724ee897f4bebf81606925ab0
 
-Etherscan link:
-https://rinkeby.etherscan.io/address/0xe1243106c460603eba6089bbbe721983295a8425
+Contract owner:
+0x3e96e43a40eee116ec19718311830863b24bc281
 
-Contract owner (account 2 on metamask):
-0xC4d1a08E7F6E6211ffea4B35Aa685a8BE249ECca
-
-Contract beneficiary (account 3 on metamask):
-0x0c93D3f8532c0A811f011949E4666D30A675D1dD
+Contract beneficiary:
+0xf46a36b1eafda5f7597395eeab4c89992f851308
 
 IPFS Hash of contract image:
-QmNWHjbpRVfGtoCuPdyadMdVWpqxHDGJBJERp7hkWu4Yup
-
-ipfs.io link:
-https://ipfs.io/ipfs/QmNWHjbpRVfGtoCuPdyadMdVWpqxHDGJBJERp7hkWu4Yup
+QmNzqYYr7v2vmgXbdhTkawtsaCtPR5fX2Rf4CYoyY1Gfnk
+https://ipfs.io/ipfs/QmNzqYYr7v2vmgXbdhTkawtsaCtPR5fX2Rf4CYoyY1Gfnk
