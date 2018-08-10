@@ -1,6 +1,6 @@
 var DeadmanSwitch = artifacts.require("DeadmanSwitch");
 
-// taken from OpenZeppelin for now.
+/* taken from OpenZeppelin for now. */
 async function expectThrow(promise) {
   try {
     await promise;
@@ -52,15 +52,16 @@ contract('DeadmanSwitch', function (accounts) {
   });
 
   it("ensure that transferring the beneficary to null is rejected", function () {
-    // The owner is actually accounts[1] at this point because we set it in the test above.
-    // TODO: isolate these tests somehow.
+    /* The owner is actually accounts[1] at this point because we set it in the test above.
+     * TODO: isolate these tests somehow.
+     */
     return DeadmanSwitch.deployed().then(function (instance) {
       return expectThrow(instance.transferBeneficiary(0, { from: accounts[0] }));
     });
   });
 
   it("should allow withdrawal only from owner", function () {
-    // The owner is actually accounts[1] at this point because we set it in the test above.
+    /* The owner is actually accounts[1] at this point because we set it in the test above. */
     return DeadmanSwitch.deployed().then(function (instance) {
       return expectThrow(instance.withdraw({ from: accounts[0] }));
     });
