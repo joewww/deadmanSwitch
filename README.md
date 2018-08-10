@@ -37,7 +37,7 @@ Install dependencies, compile contract and run unit tests:
 
 `$ truffle install && truffle compile && truffle test`
 
-**Note: you may want to update the beneficiary & contract addresses in these files:**
+**Note: you may want to update the beneficiary & contract addresses in these files if you are deploying your own contract for testing:**
 
  - test/TestDeadmanSwitch.js
  - contracts/DeadmanSwitch.sol
