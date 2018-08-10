@@ -1,6 +1,8 @@
 FROM ubuntu:16.04
 
-# docker run -d -p 8080:8080 -it --entrypoint "http-server" DeadmanSwitch
+# git clone https://github.com/joewww/deadmanSwitch.git
+# docker build -t deadmanswitch deadmanSwitch
+# docker run -d -p 8080:8080 -it --entrypoint "http-server" deadmanswitch
 
 RUN apt-get update
 RUN apt-get install -y nodejs npm nodejs-legacy
