@@ -19,6 +19,15 @@ async function expectThrow(promise) {
 
 contract('DeadmanSwitch', function (accounts) {
 
+    function assertJump(error) {
+          if(error.toString().indexOf("invalid JUMP") == -1) {
+            console.log("We were expecting a Solidity throw (aka an invalid JUMP)," + 
+                        "we got one. Test succeeded.");
+        } else {
+            assert(false, error.toString());
+        }
+    }
+
   it("should return the owner", function () {
     return DeadmanSwitch.deployed().then(function (instance) {
       return instance.owner.call();
@@ -27,7 +36,7 @@ contract('DeadmanSwitch', function (accounts) {
     });
   });
 
-  it("should return the beneficary", function () {
+  it("should return 0xf46...308 as the beneficary", function () {
     return DeadmanSwitch.deployed().then(function (instance) {
       return instance.beneficiary.call();
       }).then(function (beneficiary) {
@@ -52,58 +61,27 @@ contract('DeadmanSwitch', function (accounts) {
   });
 
   it("ensure that transferring the beneficary to null is rejected", function () {
-    /* The owner is actually accounts[1] at this point because we set it in the test above.
-     * TODO: isolate these tests somehow.
-     */
     return DeadmanSwitch.deployed().then(function (instance) {
-      return expectThrow(instance.transferBeneficiary(0, { from: accounts[0] }));
+      return expectThrow(instance.transferBeneficiary(0x0, { from: accounts[0] }));
     });
   });
 
-  it("should allow withdrawal only from owner", function () {
-    /* The owner is actually accounts[1] at this point because we set it in the test above. */
+  it("should allow withdrawal from owner", function () {
     return DeadmanSwitch.deployed().then(function (instance) {
       return expectThrow(instance.withdraw({ from: accounts[0] }));
     });
   });
 
-/*
-  it("should set the owner", function () {
-    var contractInstance;
+    // Test pause()
+    it("dont allow withdraws if contract is paused.", async() => {
+        const deadmanSwitch = await DeadmanSwitch.deployed();
+        await deadmanSwitch.pause(); //from defaultAccount -> the owner
 
-    return DeadmanSwitch.deployed().then(function (instance) {
-      contractInstance = instance;
-      return instance.setOwner(accounts[0]);
-    }).then(function () {
-      return contractInstance.owner.call();
-    }).then(function (owner) {
-      assert.equal(owner, accounts[0]);
-    });
-  });
-
-  it("should allow withdrawal", function () {
-    // The owner is actually accounts[1] at this point because we set it in the test above.
-    var ownerStartingBalance = web3.eth.getBalance(accounts[0]);
-    var contractStartingBalance;
-    var contractInstance;
-
-    return DeadmanSwitch.deployed().then(function (instance) {
-      contractInstance = instance;
-      contractStartingBalance = web3.eth.getBalance(instance.address);
-      return contractInstance.withdraw({ from: accounts[0] });
-    }).then(function (tx) {
-      var gasUsed = tx.receipt.gasUsed * 100000000000;
-      var ownerEndingBalance = ownerStartingBalance.plus(contractStartingBalance).minus(gasUsed);
-
-      assert.equal(web3.eth.getBalance(accounts[0]).toNumber(), ownerEndingBalance.toNumber(), "Amount was not sent to owner");
-      assert.equal(web3.eth.getBalance(contractInstance.address).toNumber(), 0, "Amount was not withdrawn from contract");
-    });
-  });
-
-  it("dont allow checkin from non owner/beneficary", function () {
-    return DeadmanSwitch.deployed().then(function (instance) {
-      return expectThrow(instance.checkin({ from: "0x000" }));
-    });
-  });
-*/
+        try {
+            await deadmanSwitch.withdraw("Qmm..", {from: accounts[0], value: price});
+            assert.fail('should have thrown before');
+        } catch(error) {              
+            assertJump(error);
+        }    
+    })
 });
