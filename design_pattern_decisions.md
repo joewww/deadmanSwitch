@@ -14,7 +14,7 @@ Also, updating the IPFS hash is only allowed by the owner.
 
 I have implemented a circuit breaker by allowing the contract to be Pausable, using OpenZeppelin's `Pausable.sol`.
 
-The `pause()` and `unpause()`` functions inherit `onlyOwner`, and so this contract and only be paused by the owner of the contract. All functions which can modify the contract state inherit the `whenNotPaused` modifier.
+The `pause()` and `unpause()` functions inherit `onlyOwner`, and so this contract and only be paused by the owner of the contract. All functions which can modify the contract state inherit the `whenNotPaused` modifier.
 
 ### Speed bump
 
